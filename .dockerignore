@@ -1,0 +1,9 @@
+*.md
+*.sqlite3
+pyrightconfig.json
+*.env
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
