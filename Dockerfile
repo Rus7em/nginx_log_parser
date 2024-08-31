@@ -19,4 +19,6 @@ ENV PYTHONUNBUFFERED=1 \
 RUN python manage.py migrate
 RUN python manage.py collectstatic --noinput
 
+
+
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "nginx_log_parser.wsgi:application"]
