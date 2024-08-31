@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 from rest_framework.routers import DefaultRouter
 from rest_framework import permissions
@@ -41,6 +42,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', lambda request: redirect('/admin/', permanent=True)),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
