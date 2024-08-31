@@ -1,0 +1,20 @@
+services:
+  nginx_log_parser:
+    build: 
+      context: .
+    container_name: nginx_log_parser_container
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SUPERUSER_USERNAME: "admin"
+      DJANGO_SUPERUSER_PASSWORD: "123"
+      DJANGO_SUPERUSER_EMAIL: "admin@mail.com"
+    volumes:
+      - ${LOG_FILE_PATH}:/app/data
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py create_su &&
+      python manage.py log_loading --path /app/data/${LOG_FILE_NAME} &&
+      gunicorn --bind 0.0.0.0:8000 nginx_log_parser.wsgi:application
+      "
